@@ -2,11 +2,12 @@ import axios from 'axios'
 import Qs from 'qs'
 import storageUtils from './storageUtils'
 
-export function request (config) {
+export function request(config) {
   // 1.创建axios实例
   const instance = axios.create({
-    baseURL: 'https://www.liulongbin.top:8888/api/private/v1/',
-    transformRequest: [function (data) {
+    // baseURL: 'https://www.liulongbin.top:8888/api/private/v1/',
+    baseURL: '/api/private/v1/',
+    transformRequest: [function(data) {
       return Qs.stringify(data)
     }],
     timeout: 5000
@@ -14,14 +15,14 @@ export function request (config) {
   // 2.axios拦截器
   // 2.1 请求拦截的作用
   instance.interceptors.request.use(
-    function (config) {
+    function(config) {
       // 如果有的话存入请求头，方便请求接口
       if (storageUtils.getUser()) {
-        // config.headers['X-Access-Token'] = `token ${storageUtils.getUser()}`
+        config.headers.Authorization = storageUtils.getUser()
       }
       return config
     },
-    function (error) {
+    function(error) {
       // 请求错误
       return Promise.reject(error)
     }
@@ -29,11 +30,11 @@ export function request (config) {
 
   // 2.2 响应拦截器
   instance.interceptors.response.use(
-    function (res) {
+    function(res) {
       // return res.data    // 第一种可以解决一级data
       return res
     },
-    function (error) {
+    function(error) {
       // 当服务器返回401状态码的时候 跳转到登录页
       if (error && error.response && error.response.status === 401) {
         this.$message.warning('登录信息失效，请重新登录')

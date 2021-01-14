@@ -1,8 +1,21 @@
-// element ui按需引入
+// element ui框架按需引入
 import Vue from 'vue'
-import { Button, Form, FormItem, Input, Message } from 'element-ui'
+import {
+  Button,
+  Form,
+  FormItem,
+  Input,
+  Message,
+  Container,
+  Header,
+  Aside,
+  Main,
+  Menu,
+  Submenu,
+  MenuItem
+} from 'element-ui'
 
-Message.install = function (Vue, options) {
+Message.install = function(Vue, options) {
   Vue.prototype.$message = Message
 }
 
@@ -12,3 +25,10 @@ Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
 Vue.use(Message)
+Vue.use(Container)
+Vue.use(Header)
+Vue.use(Aside)
+Vue.use(Main)
+Vue.use(Menu)
+Vue.use(Submenu)
+Vue.use(MenuItem)

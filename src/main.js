@@ -5,14 +5,8 @@ import store from './store'
 import './plugins/element.js'
 // 引入全局样式表
 import './assets/css/global.css'
-// 导入字体图标
+// 导入阿里字体图标
 import './assets/fonts/iconfont.css'
-/*
-  废弃
-*/
-// import axios from 'axios'
-// Vue.prototype.$http = axios
-// axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1/'
 
 Vue.config.productionTip = false
 

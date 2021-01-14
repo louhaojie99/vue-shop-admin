@@ -1,25 +1,30 @@
 <template>
-  <div class='login_container'>
-      <div class="login_box">
-        <!-- 头像区域 -->
-        <div class="avatar_box">
-          <img src="../../assets/logo.png" alt="">
-        </div>
-        <!-- 登录表单区域 -->
-        <el-form
-          ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_from">
-          <el-form-item prop="username">
-            <el-input v-model="loginForm.username" placeholder="请输入用户名" prefix-icon="iconfont icon-user_login"></el-input>
-          </el-form-item>
-          <el-form-item prop="password">
-            <el-input v-model="loginForm.password"  placeholder="请输入密码" prefix-icon="iconfont icon-3702mima" type="password" @paste.native.capture.prevent="handlePaste"></el-input>
-          </el-form-item>
-          <el-form-item class="btns">
-            <el-button type="primary" @click="login">登录</el-button>
-            <el-button type="info" @click="resetForm('loginFormRef')">重置</el-button>
-          </el-form-item>
-        </el-form>
+  <div class="login_container">
+    <div class="login_box">
+      <!-- 头像区域 -->
+      <div class="avatar_box">
+        <img src="~@/assets/logo.png" alt="">
       </div>
+      <!-- 登录表单区域 -->
+      <el-form
+        ref="loginFormRef"
+        :model="loginForm"
+        :rules="loginFormRules"
+        label-width="0px"
+        class="login_from"
+      >
+        <el-form-item prop="username">
+          <el-input v-model="loginForm.username" placeholder="请输入用户名" prefix-icon="iconfont icon-user_login" />
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input v-model="loginForm.password" placeholder="请输入密码" prefix-icon="iconfont icon-3702mima" type="password" @paste.native.capture.prevent="handlePaste" />
+        </el-form-item>
+        <el-form-item class="btns">
+          <el-button type="primary" @click="login">登录</el-button>
+          <el-button type="info" @click="resetForm('loginFormRef')">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
@@ -29,7 +34,7 @@ import { userLogin } from '@/api/login'
 
 export default {
   components: {},
-  data () {
+  data() {
     return {
       // 这是登录表单的数据绑定对象
       loginForm: {
@@ -51,27 +56,34 @@ export default {
   },
   computed: {},
   watch: {},
+  created() {
+
+  },
+  mounted() {
+
+  },
+  beforeCreate() {
+    // DigitalRain()
+  },
+  beforeMount() {},
+  beforeUpdate() {},
+  updated() {},
+  beforeDestroy() {},
+  destroyed() {},
+  activated() {},
   methods: {
     // 重置表单
-    resetForm (loginFormRef) {
+    resetForm(loginFormRef) {
       this.$refs[loginFormRef].resetFields()
     },
     // 阻止密码框粘贴
-    handlePaste (e) {
+    handlePaste(e) {
       return false
     },
-    login () {
+    login() {
       // 表单登录预验证
-      this.$refs.loginFormRef.validate(async (valid) => {
+      this.$refs.loginFormRef.validate(async(valid) => {
         if (!valid) return
-        // const { data: res } = await this.$http.post('login', { ...this.loginForm })
-        // // console.log(res)
-        // if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
-        // this.$message.success(res.meta.msg)
-        // storageUtils.saveUser(res.data.token) // 登录信息保存到localStorage中
-        // // window.localStorage.setItem('token', JSON.stringify(res.data.token))
-        // this.$router.push('/home')
-
         const { data: res } = await userLogin({ ...this.loginForm })
         console.log(res)
         if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
@@ -81,22 +93,7 @@ export default {
         this.$router.push({ path: '/home' })
       })
     }
-  },
-  created () {
-
-  },
-  mounted () {
-
-  },
-  beforeCreate () {
-    // DigitalRain()
-  },
-  beforeMount () {},
-  beforeUpdate () {},
-  updated () {},
-  beforeDestroy () {},
-  destroyed () {},
-  activated () {}
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -144,16 +141,4 @@ export default {
   display: flex;
   justify-content: center;
 }
-
-canvas {
-  position: fixed;
-  right: 0px;
-  bottom: 0px;
-  min-width: 100%;
-  min-height: 100%;
-  height: auto;
-  width: auto;
-  z-index: -1;
-}
-
 </style>

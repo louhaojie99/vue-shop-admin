@@ -8,17 +8,17 @@ import store from 'store' // 引入第三方插件
 const USER_KEY = 'token' // 定义常量
 export default {
   // 保存
-  saveUser (user) {
+  saveUser(user) {
     // localStorage.setItem(USER_KEY, JSON.stringify(user));
     store.set(USER_KEY, user)
   },
   // 获取
-  getUser () {
+  getUser() {
     // return localStorage.getItem(JSON.parse(USER_KEY)) || '{}'
     return store.get(USER_KEY) || {}
   },
   // 删除
-  removeUser () {
+  removeUser() {
     // localStorage.removeItem(USER_KEY);
     store.remove(USER_KEY)
   }
