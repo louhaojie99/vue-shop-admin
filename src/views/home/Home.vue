@@ -12,13 +12,19 @@
     <!-- 页面主体区域 -->
     <el-container>
       <!-- 侧边栏 -->
-      <el-aside width="250px">
+      <el-aside :width="isCollapse?'64px':'200px'">
+        <div class="toggle-button" @click="toggleCollapse">
+          <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'" />
+        </div>
         <el-menu
+          class="el-menu"
           default-active="110"
           :unique-opened="true"
           background-color="#333744"
           text-color="#fff"
+          :collapse="isCollapse"
           active-text-color="#409eff"
+          :collapse-transition="false"
           @open="handleOpen"
           @close="handleClose"
         >
@@ -68,7 +74,8 @@ export default {
         101: 'iconfont icon-shangpin',
         102: 'iconfont icon-danju',
         145: 'iconfont icon-baobiao'
-      }
+      },
+      isCollapse: false
     }
   },
   computed: {},
@@ -85,6 +92,10 @@ export default {
     // 菜单关闭回调
     handleClose(key, keyPath) {
       console.log(key, keyPath)
+    },
+    // 菜单折叠收缩
+    toggleCollapse() {
+      this.isCollapse = !this.isCollapse
     },
     // 退出
     loginOut() {
@@ -136,5 +147,23 @@ export default {
 }
 .el-menu-item.is-active {
   background-color: rgb(41, 45, 54) !important;
+}
+.el-menu{
+  border-right: 0;
+}
+.toggle-button{
+  background-color: #272729;
+  color: #945b88;
+  font-size: 26px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  cursor: pointer;
+}
+.active{
+  width: 200px;
+}
+.noActive{
+  width: 100px;
 }
 </style>
