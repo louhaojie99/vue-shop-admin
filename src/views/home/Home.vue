@@ -4,7 +4,8 @@
     <el-header>
       <div class="logo">
         <img src="../../assets/logo.png" alt="">
-        <span>电商后台管理系统</span>
+        <!-- <span>电商后台管理系统</span> -->
+        <span>测试后台管理系统</span>
       </div>
       <el-button type="info" @click="loginOut">退出</el-button>
     </el-header>
@@ -13,7 +14,8 @@
       <!-- 侧边栏 -->
       <el-aside width="250px">
         <el-menu
-          default-active="1"
+          default-active="110"
+          :unique-opened="true"
           background-color="#333744"
           text-color="#fff"
           active-text-color="#409eff"
@@ -45,7 +47,9 @@
         </el-menu>
       </el-aside>
       <!-- 右侧内容 -->
-      <el-main>Main</el-main>
+      <el-main>
+        Main
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -68,7 +72,8 @@ export default {
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+  },
   created() {
     this.getMenuList()
   },

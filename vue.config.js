@@ -14,13 +14,13 @@ module.exports = {
     port: 3005,
     open: true, // 自动打开浏览器
     proxy: {
-      '/api/private/v1/': {
+      '/api': {
         target: 'https://www.liulongbin.top:8888/', // 项目测试环境服务接口地址
         // target: 'http://127.0.0.1:8000/api/w6', // 本地测试环境服务接口地址
         ws: true, // websocket
         changeOrigin: true, // 发送请求头中host会设置成target·
         pathRewrite: {
-          '^/api/private/v1/': '/api/private/v1/' // 请求路径进行重定向以匹配到正确路径，可以忽略，配置出来   http://XX.XX.XX.XX:8000/api/login
+          '^/api': '/api' // 请求路径进行重定向以匹配到正确路径，可以忽略，配置出来   http://XX.XX.XX.XX:8000/api/login
         }
         // secure: false,  // 如果是https接口，需要配置这个参数
       }

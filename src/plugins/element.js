@@ -13,6 +13,7 @@ import {
   Menu,
   Submenu,
   MenuItem
+
 } from 'element-ui'
 
 Message.install = function(Vue, options) {
@@ -32,3 +33,4 @@ Vue.use(Main)
 Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItem)
+
