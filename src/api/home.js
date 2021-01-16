@@ -1,6 +1,6 @@
-import { request } from '../utils/request'
+import { request } from '@/utils/request'
 
-// 登录管理
+// 获取左侧菜单列表
 export const getMenuList = (params) => {
   return request({
     url: '/menus',
@@ -8,3 +8,4 @@ export const getMenuList = (params) => {
     params
   })
 }
+

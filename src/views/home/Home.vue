@@ -5,7 +5,7 @@
       <div class="logo">
         <img src="../../assets/logo.png" alt="">
         <!-- <span>电商后台管理系统</span> -->
-        <span>测试后台管理系统</span>
+        <span>功能测试管理系统</span>
       </div>
       <el-button type="info" @click="loginOut">退出</el-button>
     </el-header>
@@ -17,14 +17,15 @@
           <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'" />
         </div>
         <el-menu
+          :default-active="activePath"
           class="el-menu"
-          default-active="110"
           :unique-opened="true"
           background-color="#333744"
           text-color="#fff"
           :collapse="isCollapse"
           active-text-color="#409eff"
           :collapse-transition="false"
+          :router="true"
           @open="handleOpen"
           @close="handleClose"
         >
@@ -39,10 +40,13 @@
               &nbsp;
               <span>{{ item.authName }}</span>
             </template>
+
+            <!-- 二级菜单 -->
             <el-menu-item
               v-for="subItem in item.children"
               :key="subItem.id"
-              :index="subItem.id + ''"
+              :index="'/'+subItem.path"
+              @click="saveNavState('/'+subItem.path)"
             >
               <template slot="title">
                 <i class="el-icon-menu" />
@@ -54,7 +58,7 @@
       </el-aside>
       <!-- 右侧内容 -->
       <el-main>
-        Main
+        <router-view />
       </el-main>
     </el-container>
   </el-container>
@@ -67,7 +71,8 @@ export default {
   components: {},
   data() {
     return {
-      menuList: [], // 左侧菜单树
+      // 左侧菜单树
+      menuList: [],
       iconsObj: {
         125: 'iconfont icon-users',
         103: 'iconfont icon-tijikongjian',
@@ -75,7 +80,10 @@ export default {
         102: 'iconfont icon-danju',
         145: 'iconfont icon-baobiao'
       },
-      isCollapse: false
+      // 菜单栏是否折叠
+      isCollapse: false,
+      // 被激活的链接地址
+      activePath: ''
     }
   },
   computed: {},
@@ -83,6 +91,7 @@ export default {
   },
   created() {
     this.getMenuList()
+    this.activePath = JSON.parse(window.localStorage.getItem('activePath'))
   },
   methods: {
     // 菜单打开回调
@@ -97,6 +106,11 @@ export default {
     toggleCollapse() {
       this.isCollapse = !this.isCollapse
     },
+    // 保存链接的激活状态
+    saveNavState(activePath) {
+      window.localStorage.setItem('activePath', JSON.stringify(activePath))
+      this.activePath = activePath
+    },
     // 退出
     loginOut() {
       storageUtils.removeUser()
@@ -107,7 +121,7 @@ export default {
     async getMenuList() {
       const { data: res } = await getMenuList()
       if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
-      console.log(res.data)
+      // console.log(res.data)
       this.menuList = res.data
     }
   }
