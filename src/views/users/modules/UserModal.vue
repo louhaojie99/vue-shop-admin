@@ -91,7 +91,7 @@ export default {
       rules: {
         username: [
           { required: true, message: '请输入用户名称', trigger: 'blur' },
-          { min: 3, max: 10, message: '用户名的长度在 3 到 10 个字符之间', trigger: 'blur' }
+          { min: 2, max: 10, message: '用户名的长度在 2 到 10 个字符之间', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },

@@ -78,7 +78,7 @@
                   </el-tooltip>
                   <!-- 删除按钮 -->
                   <el-tooltip effect="dark" content="删除" placement="top" :enterable="false">
-                    <el-button type="danger" icon="el-icon-delete" size="mini" />
+                    <el-button type="danger" icon="el-icon-delete" size="mini" @click="remoteUserById(scope.row.id)" />
                   </el-tooltip>
                   <!-- 分配角色 -->
                   <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
@@ -121,7 +121,7 @@
 </template>
 
 <script>
-import { getUserList, putUserState } from '@/api/users'
+import { getUserList, putUserState, delUserInfo } from '@/api/users'
 import UserModal from './modules/UserModal'
 
 export default {
@@ -204,6 +204,27 @@ export default {
       this.visible = false
       if (val === 200) {
         this.getUserList()
+      }
+    },
+    // 根据id删除对应的用户信息
+    async remoteUserById(id) {
+      const confirmResult = await this.$confirm('是否删除此用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch(err => {
+        return err
+      })
+      if (confirmResult !== 'confirm') {
+        return this.$message.info('已经取消删除')
+      } else {
+        const { data: res } = await delUserInfo({ id })
+        if (res.meta.status !== 200) {
+          return this.$message.error('删除用户失败')
+        } else {
+          this.$message.success('删除用户成功')
+          this.getUserList()
+        }
       }
     }
   }

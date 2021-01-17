@@ -4,6 +4,7 @@ import Login from '@/views/login/Login.vue'
 import Home from '@/views/home/Home.vue'
 import Welcome from '@/views/welcome/Welcome.vue'
 import Users from '@/views/users/Users.vue'
+import Rights from '@/views/power/Rights.vue'
 
 Vue.use(VueRouter)
 
@@ -21,8 +22,13 @@ const routes = [
       {
         path: '/welcome', name: 'Welcome', component: Welcome
       },
+      // 用户管理
       {
         path: '/users', name: 'Users', component: Users
+      },
+      // 权限管理
+      {
+        path: '/rights', name: 'Rights', component: Rights
       }
     ]
   }

@@ -44,3 +44,11 @@ export const editUserInfo = (params) => {
     data: { email, mobile }
   })
 }
+
+// 删除用户
+export const delUserInfo = (params) => {
+  return request({
+    url: `/users/${params.id}`,
+    method: 'delete'
+  })
+}

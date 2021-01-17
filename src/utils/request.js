@@ -10,7 +10,7 @@ export function request(config) {
     transformRequest: [function(data) {
       return Qs.stringify(data)
     }],
-    timeout: 5000
+    timeout: 60000
   })
   // 2.axios拦截器
   // 2.1 请求拦截的作用

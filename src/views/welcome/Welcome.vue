@@ -77,10 +77,11 @@ export default {
     })
   },
   mounted() {
-
+    this.aaa()
   },
   beforeCreate() {},
   methods: {
+
   }
 }
 </script>

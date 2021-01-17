@@ -23,19 +23,16 @@ import {
   Switch,
   Tooltip,
   Pagination,
-  Dialog
+  Dialog,
+  MessageBox,
+  Tag
 } from 'element-ui'
-
-Message.install = function(Vue, options) {
-  Vue.prototype.$message = Message
-}
 
 // 和所有组件一样，一并进行use
 Vue.use(Button)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
-Vue.use(Message)
 Vue.use(Container)
 Vue.use(Header)
 Vue.use(Aside)
@@ -54,4 +51,8 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Tag)
 
+// 全局挂载
+Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox.confirm
