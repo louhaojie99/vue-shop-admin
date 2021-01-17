@@ -1,11 +1,7 @@
 <template>
-  <div style="height: 100%">
+  <div style="height: 100%;overflow: hidden;">
     <!-- 面包屑导航区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <breadcrumb :breadcrumb-data="breadcrumbData" />
 
     <!-- 卡片视图区域 -->
     <el-card style="height: 95%">
@@ -18,7 +14,7 @@
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" @click="addUserInfoHandle">添加用户</el-button>
+          <el-button type="primary" icon="el-icon-plus" @click="addUserInfoHandle">添加用户</el-button>
         </el-col>
       </el-row>
 
@@ -34,7 +30,7 @@
             height="500"
           >
             >
-            <el-table-column type="index" label="序号" width="80" align="center" />
+            <el-table-column type="index" label="#" width="80" align="center" />
             <el-table-column
               prop="username"
               label="姓名"
@@ -123,13 +119,28 @@
 <script>
 import { getUserList, putUserState, delUserInfo } from '@/api/users'
 import UserModal from './modules/UserModal'
+import Breadcrumb from '@/components/cmp/Breadcrumb'
 
 export default {
   components: {
-    UserModal
+    UserModal,
+    Breadcrumb
   },
   data() {
     return {
+      // 面包屑数据
+      breadcrumbData: [
+        {
+          path: '/home',
+          title: '首页'
+        },
+        {
+          title: '用户管理'
+        },
+        {
+          title: '用户列表'
+        }
+      ],
       // 获取用户列表的参数对象
       queryParams: {
         query: '',

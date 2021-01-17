@@ -2,10 +2,10 @@
   <el-container class="home-container">
     <!-- 头部区域 -->
     <el-header>
-      <div class="logo">
+      <div>
         <img src="../../assets/logo.png" alt="">
         <!-- <span>电商后台管理系统</span> -->
-        <span>功能测试管理系统</span>
+        <span>电商管理后台系统</span>
       </div>
       <el-button type="info" @click="loginOut">退出</el-button>
     </el-header>

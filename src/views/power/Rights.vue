@@ -1,11 +1,7 @@
 <template>
   <div style="height: 100%">
     <!-- 面包屑导航区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-      <el-breadcrumb-item>权限列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <breadcrumb :breadcrumb-data="breadcrumbData" />
 
     <!-- 卡片视图 -->
     <el-card style="height: 95%">
@@ -18,7 +14,7 @@
         height="500"
       >
         >
-        <el-table-column type="index" label="序号" width="80" align="center" />
+        <el-table-column type="index" label="#" width="80" align="center" />
         <el-table-column
           prop="authName"
           label="权限名称"
@@ -67,11 +63,27 @@
 
 <script>
 import { getRightsList } from '@/api/power'
+import Breadcrumb from '@/components/cmp/Breadcrumb'
 
 export default {
-  components: {},
+  components: {
+    Breadcrumb
+  },
   data() {
     return {
+      // 面包屑数据
+      breadcrumbData: [
+        {
+          path: '/home',
+          title: '首页'
+        },
+        {
+          title: '权限管理'
+        },
+        {
+          title: '权限列表'
+        }
+      ],
       // 权限列表
       rightsList: []
     }
@@ -93,10 +105,8 @@ export default {
       const { data: res } = await getRightsList(params)
       if (res.meta.status !== 200) {
         return this.$message.error('获取权限列表失败')
-      } else {
-        this.rightsList = res.data
-        console.log(this.rightsList)
       }
+      this.rightsList = res.data
     }
   }
 }
