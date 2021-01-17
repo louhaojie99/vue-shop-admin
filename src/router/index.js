@@ -5,6 +5,7 @@ import Home from '@/views/home/Home.vue'
 import Welcome from '@/views/welcome/Welcome.vue'
 import Users from '@/views/users/Users.vue'
 import Rights from '@/views/power/Rights.vue'
+import Roles from '@/views/power/Roles.vue'
 
 Vue.use(VueRouter)
 
@@ -26,9 +27,13 @@ const routes = [
       {
         path: '/users', name: 'Users', component: Users
       },
-      // 权限管理
+      // 权限管理 权限列表
       {
         path: '/rights', name: 'Rights', component: Rights
+      },
+      // 权限管理 角色列表
+      {
+        path: '/roles', name: 'Roles', component: Roles
       }
     ]
   }

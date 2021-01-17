@@ -75,13 +75,6 @@ export default {
         setInterval(draw, 45)
       }
     })
-  },
-  mounted() {
-    this.aaa()
-  },
-  beforeCreate() {},
-  methods: {
-
   }
 }
 </script>

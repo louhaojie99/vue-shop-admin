@@ -67,6 +67,7 @@
 
 <script>
 import { getRightsList } from '@/api/power'
+
 export default {
   components: {},
   data() {

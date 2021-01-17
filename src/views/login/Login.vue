@@ -54,23 +54,6 @@ export default {
       }
     }
   },
-  computed: {},
-  watch: {},
-  created() {
-
-  },
-  mounted() {
-
-  },
-  beforeCreate() {
-    // DigitalRain()
-  },
-  beforeMount() {},
-  beforeUpdate() {},
-  updated() {},
-  beforeDestroy() {},
-  destroyed() {},
-  activated() {},
   methods: {
     // 重置表单
     resetForm(loginFormRef) {

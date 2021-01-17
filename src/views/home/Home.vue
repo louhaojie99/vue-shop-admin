@@ -86,9 +86,6 @@ export default {
       activePath: ''
     }
   },
-  computed: {},
-  watch: {
-  },
   created() {
     this.getMenuList()
     this.activePath = JSON.parse(window.localStorage.getItem('activePath'))
