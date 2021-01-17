@@ -10,6 +10,7 @@
 <script>
 export default {
   props: {
+    // 面包屑数据
     breadcrumbData: {
       type: Array,
       default: () => {
