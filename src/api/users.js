@@ -35,7 +35,7 @@ export const getUserInfo = (params) => {
   })
 }
 
-// 编辑用户提交
+// 修改用户信息
 export const editUserInfo = (params) => {
   const { email, mobile } = params
   return request({
