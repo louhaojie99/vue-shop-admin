@@ -5,6 +5,6 @@ export const userLogin = (params) => {
   return request({
     url: '/login',
     method: 'post',
-    params
+    data: params
   })
 }
