@@ -11,7 +11,7 @@ module.exports = {
   // 配置反向代理，解决跨域
   devServer: {
     hot: true,
-    port: 3005,
+    port: 9000,
     open: true, // 自动打开浏览器
     proxy: {
       '/api': {
