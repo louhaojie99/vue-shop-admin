@@ -3,7 +3,7 @@ import { request } from '@/utils/request'
 // 权限管理 获取权限列表
 export const getRightsList = (params) => {
   return request({
-    url: `/rights/${params.type}`,
+    url: `/private/v1/rights/${params.type}`,
     method: 'get'
   })
 }
@@ -11,7 +11,7 @@ export const getRightsList = (params) => {
 // 权限管理 获取角色列表
 export const getRolesList = (params) => {
   return request({
-    url: '/roles',
+    url: '/private/v1/roles',
     method: 'get',
     params
   })
@@ -20,7 +20,7 @@ export const getRolesList = (params) => {
 // 权限管理 角色列表 删除角色指定权限
 export const delRolePower = (params) => {
   return request({
-    url: `/roles/${params.roleId}/rights/${params.rightId}`,
+    url: `/private/v1/roles/${params.roleId}/rights/${params.rightId}`,
     method: 'delete'
   })
 }
@@ -28,7 +28,7 @@ export const delRolePower = (params) => {
 // 权限管理 角色列表 所有权限列表
 export const getAllrights = (params) => {
   return request({
-    url: `/rights/${params.type}`,
+    url: `/private/v1/rights/${params.type}`,
     method: 'get'
   })
 }

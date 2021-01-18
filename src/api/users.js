@@ -1,10 +1,9 @@
-
 import { request } from '@/utils/request'
 
 // 获取用户列表数据
 export const getUserList = (params) => {
   return request({
-    url: '/users',
+    url: '/private/v1/users',
     method: 'get',
     params
   })
@@ -13,7 +12,7 @@ export const getUserList = (params) => {
 // 修改用户状态
 export const putUserState = (params) => {
   return request({
-    url: `/users/${params.uid}/state/${params.type}`,
+    url: `/private/v1/users/${params.uid}/state/${params.type}`,
     method: 'put'
   })
 }
@@ -21,7 +20,7 @@ export const putUserState = (params) => {
 // 添加用户
 export const addUser = (params) => {
   return request({
-    url: '/users',
+    url: '/private/v1/users',
     method: 'post',
     data: params
   })
@@ -30,7 +29,7 @@ export const addUser = (params) => {
 // 根据ID查询用户信息
 export const getUserInfo = (params) => {
   return request({
-    url: `/users/${params.id}`,
+    url: `/private/v1/users/${params.id}`,
     method: 'get'
   })
 }
@@ -39,7 +38,7 @@ export const getUserInfo = (params) => {
 export const editUserInfo = (params) => {
   const { email, mobile } = params
   return request({
-    url: `/users/${params.id}`,
+    url: `/private/v1/users/${params.id}`,
     method: 'put',
     data: { email, mobile }
   })
@@ -48,7 +47,7 @@ export const editUserInfo = (params) => {
 // 删除用户
 export const delUserInfo = (params) => {
   return request({
-    url: `/users/${params.id}`,
+    url: `/private/v1/users/${params.id}`,
     method: 'delete'
   })
 }
