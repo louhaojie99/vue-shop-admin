@@ -32,3 +32,15 @@ export const getAllrights = (params) => {
     method: 'get'
   })
 }
+
+// 权限管理 角色列表 角色授权
+export const roleAuthorization = (params) => {
+  const { rids } = params
+  return request({
+    url: `/private/v1/roles/${params.roleId}/rights`,
+    method: 'post',
+    data: { rids },
+    Qs: true // 开启不序列化操作
+  })
+}
+

@@ -51,3 +51,22 @@ export const delUserInfo = (params) => {
     method: 'delete'
   })
 }
+
+// 获取角色列表
+export const getRoleList = (params) => {
+  return request({
+    url: `/private/v1/roles`,
+    method: 'get',
+    params
+  })
+}
+
+// 分配用户角色   未联调
+export const allotUserRole = (params) => {
+  const { mobile, email } = params
+  return request({
+    url: `/users/${params.id}/role`,
+    method: 'put',
+    data: { mobile, email }
+  })
+}

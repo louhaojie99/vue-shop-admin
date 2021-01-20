@@ -78,7 +78,7 @@
                   </el-tooltip>
                   <!-- 分配角色 -->
                   <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-                    <el-button type="warning" icon="el-icon-setting" size="mini" />
+                    <el-button type="warning" icon="el-icon-setting" size="mini" @click="allotRoleHandle(scope.row)" />
                   </el-tooltip>
                 </el-row>
               </template>
@@ -98,13 +98,14 @@
       />
 
       <!--
-            表单使用说明：添加表单
-            width 宽度
-            title 标题
-            dialog-visible 显示状态
-            closeDialog    关闭回调
-          -->
-      <user-modal
+        表单组件使用说明
+        width 宽度
+        title 标题
+        dialog-visible 显示状态
+        closeDialog    关闭回调
+      -->
+      <!-- 添加编辑表单 -->
+      <crud-user-modal
         v-if="visible"
         width="600"
         :title="modalParams.title"
@@ -112,50 +113,57 @@
         :dialog-visible="visible"
         @closeDialog="closeCallBack"
       />
+      <!-- 分配角色表单 -->
+      <allot-role-modal
+        v-if="allotRoleModalVisible"
+        width="600"
+        title="分配角色"
+        :user-info="userInfo"
+        :dialog-visible="allotRoleModalVisible"
+        @closeDialog="allotRoleCloseCallBack"
+      />
     </el-card>
   </div>
 </template>
 
 <script>
 import { getUserList, putUserState, delUserInfo } from '@/api/users'
-import UserModal from './modules/UserModal'
 import Breadcrumb from '@/components/cmp/Breadcrumb'
+import CrudUserModal from './modules/CrudUserModal'
+import AllotRoleModal from './modules/AllotRoleModal'
 
 export default {
   components: {
-    UserModal,
-    Breadcrumb
+    Breadcrumb,
+    CrudUserModal,
+    AllotRoleModal
   },
   data() {
     return {
       // 面包屑数据
       breadcrumbData: [
-        {
-          path: '/home',
-          title: '首页'
-        },
-        {
-          title: '用户管理'
-        },
-        {
-          title: '用户列表'
-        }
+        { path: '/home', title: '首页' },
+        { title: '用户管理' },
+        { title: '用户列表' }
       ],
-      // 获取用户列表的参数对象
+      // 分页器参数
       queryParams: {
         query: '',
         pagenum: 1, // 默认多少页
         pagesize: 15 // 每页多少条
       },
-      userList: [],
       total: 0,
+      // 用户列表数据
+      userList: [],
+      // 添加修改表单modal绑定数据
       visible: false,
-      // 表单modal绑定数据
       modalParams: {
         title: ''
       },
-      // 表单modal修改保存的id
-      userId: 0
+      userId: 0,
+      // 分配角色表单Modal绑定的数据
+      allotRoleModalVisible: false,
+      userInfo: {}
     }
   },
   created() {
@@ -237,6 +245,19 @@ export default {
           this.getUserList()
         }
       }
+    },
+    // 分配角色
+    allotRoleHandle(userInfo) {
+      this.userInfo = userInfo
+
+      // 在展示对话框之前获取所有的角色列表
+
+      this.allotRoleModalVisible = true
+    },
+    // 分配角色回调
+    allotRoleCloseCallBack(val) {
+      this.allotRoleModalVisible = false
+      if (val === 200) return
     }
   }
 }

@@ -16,14 +16,18 @@ export function request(config) {
   // 2.axios拦截器
   instance.interceptors.request.use(
     function(config) {
-      // 判断请求方式是否为POST，进行转换格式，请求发送前进行处理
-      config.method === 'post'
-        ? config.data = Qs.stringify({ ...config.data })
-        : config.params = { ...config.params }
-
       // 如果有的话存入请求头，方便请求接口
       if (storageUtils.getUser()) {
         config.headers.Authorization = storageUtils.getUser()
+      }
+
+      // 判断请求方式是否为POST，进行转换格式，请求发送前进行处理
+      if (config.Qs) { // 包含Qs属性，不进行序列化
+        return config
+      } else {
+        config.method === 'post'
+          ? config.data = Qs.stringify({ ...config.data })
+          : config.params = { ...config.params }
       }
       return config
     },

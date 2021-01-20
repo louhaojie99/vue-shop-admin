@@ -26,7 +26,9 @@ import {
   Dialog,
   MessageBox,
   Tag,
-  Tree
+  Tree,
+  Select,
+  Option
 } from 'element-ui'
 
 // 和所有组件一样，一并进行use
@@ -54,6 +56,8 @@ Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Tag)
 Vue.use(Tree)
+Vue.use(Select)
+Vue.use(Option)
 
 // 全局挂载
 Vue.prototype.$message = Message
