@@ -5,6 +5,7 @@ import store from './store'
 import './plugins/element.js'
 // 引入全局样式表
 import './assets/css/global.css'
+import './assets/css/scrollbar.css'
 // 导入阿里字体图标
 import './assets/fonts/iconfont.css'
 

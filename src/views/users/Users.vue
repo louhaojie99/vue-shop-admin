@@ -249,7 +249,7 @@ export default {
   margin-top: 15px;
   font-size: 14px;
   height: 60vh;
-  overflow: auto;
+  overflow-y: auto;
 }
 .el-pagination{
   margin-top: 15px;
