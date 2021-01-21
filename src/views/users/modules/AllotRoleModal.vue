@@ -6,6 +6,7 @@
     :before-close="handleClose"
     :destroy-on-close="true"
     :close-on-click-modal="false"
+    @close="closeResetForm"
   >
     <div class="content">
       <el-row :gutter="24">
@@ -36,13 +37,13 @@
     </div>
     <span slot="footer">
       <el-button @click="handleClose">取 消</el-button>
-      <el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+      <el-button type="primary" @click="submitForm">确 定</el-button>
     </span>
   </el-dialog>
 </template>
 
 <script>
-import { getRoleList } from '@/api/users'
+import { getRoleList, allotUserRole } from '@/api/users'
 
 export default {
   props: {
@@ -79,11 +80,24 @@ export default {
   methods: {
     // 取消
     handleClose() {
-      this.$emit('closeDialog') // 取消 和 x按钮的事件
+      this.$emit('closeDialog')
     },
     // 提交表单
-    submitForm() {
-
+    async submitForm() {
+      if (!this.selectedRoleId) {
+        return this.$message.error('请选择要分配的角色')
+      }
+      const params = {
+        userInfo: this.userInfo,
+        rid: this.selectedRoleId
+      }
+      console.log(params)
+      const { data: res } = await allotUserRole(params)
+      if (res.meta.status !== 200) {
+        return this.$message.error('更新角色失败')
+      }
+      this.$message.success('更新角色成功')
+      this.$emit('closeDialog', 200)
     },
     // 获取角色列表
     async getRoleList() {
@@ -91,8 +105,12 @@ export default {
       if (res.meta.status !== 200) {
         return this.$message.error('获取角色列表失败')
       }
-      console.log(res)
       this.rolesList = res.data
+    },
+    // 监听分配角色对话框的关闭
+    closeResetForm() {
+      this.selectedRoleId = ''
+      this.userInfo = ''
     }
   }
 }

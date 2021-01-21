@@ -38,11 +38,12 @@
         </el-table-column>
         <el-table-column
           label="操作"
+          width="250"
         >
           <template>
             <el-row>
               <!-- 修改按钮 -->
-              <el-tooltip effect="dark" content="修改" placement="top" :enterable="false">
+              <el-tooltip effect="dark" content="编辑" placement="top" :enterable="false">
                 <el-button type="primary" icon="el-icon-edit" size="mini" />
               </el-tooltip>
               <!-- 删除按钮 -->

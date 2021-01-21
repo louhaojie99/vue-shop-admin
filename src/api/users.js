@@ -61,12 +61,12 @@ export const getRoleList = (params) => {
   })
 }
 
-// 分配用户角色   未联调
+// 分配用户角色
 export const allotUserRole = (params) => {
-  const { mobile, email } = params
+  const { rid } = params
   return request({
-    url: `/users/${params.id}/role`,
+    url: `/private/v1/users/${params.userInfo.id}/role`,
     method: 'put',
-    data: { mobile, email }
+    data: { rid }
   })
 }

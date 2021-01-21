@@ -58,88 +58,66 @@
         />
         <el-table-column
           label="操作"
-          width="350"
+          width="250"
         >
           <template slot-scope="scope">
-            <el-button type="primary" icon="el-icon-edit" size="mini">编辑</el-button>
-            <el-button type="danger" icon="el-icon-delete" size="mini">删除</el-button>
-            <el-button
-              type="warning"
-              icon="el-icon-setting"
-              size="mini"
-              @click="showSetRightDialog(scope.row)"
-            >分配权限</el-button>
+            <el-tooltip effect="dark" content="编辑" placement="top" :enterable="false">
+              <el-button type="primary" icon="el-icon-edit" size="mini" />
+            </el-tooltip>
+            <el-tooltip effect="dark" content="删除" placement="top" :enterable="false">
+              <el-button type="danger" icon="el-icon-delete" size="mini" />
+            </el-tooltip>
+            <el-tooltip effect="dark" content="分配权限" placement="top" :enterable="false">
+              <el-button
+                type="warning"
+                icon="el-icon-setting"
+                size="mini"
+                @click="allotPowerHanlde(scope.row)"
+              />
+            </el-tooltip>
+
           </template>
         </el-table-column>
       </el-table>
-
-      <!-- 分配权限的对话框 -->
-      <el-dialog
+      <!-- 分配权限的表单 -->
+      <j-select-alot-tree-modal
+        v-if="alotTreeVisible"
+        :visible="alotTreeVisible"
+        :role-id="roleId"
+        :def-keys="defKeys"
         title="分配权限"
-        :visible.sync="dialogVisible"
-        width="50%"
-      >
-        <!-- 树形控件 -->
-        <el-tree
-          ref="treeRef"
-          style="height: 300px;overflow:auto"
-          :data="rightslint"
-          :props="defaultProps"
-          show-checkbox
-          node-key="id"
-          :default-expand-all="true"
-          :default-checked-keys="defKeys"
-        />
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="allotRights">确 定</el-button>
-        </span>
-      </el-dialog>
+        width="700"
+        @closeModal="closeModalCallBack"
+      />
     </el-card>
   </div>
 </template>
 
 <script>
-import { getRolesList, delRolePower, getAllrights, roleAuthorization } from '@/api/power'
+import { getRolesList, delRolePower } from '@/api/power'
 import Breadcrumb from '@/components/cmp/Breadcrumb'
+import JSelectAlotTreeModal from './modules/JSelectAlotTreeModal'
 
 export default {
   components: {
-    Breadcrumb
+    Breadcrumb,
+    JSelectAlotTreeModal
   },
   data() {
     return {
       // 面包屑数据
       breadcrumbData: [
-        {
-          path: '/home',
-          title: '首页'
-        },
-        {
-          title: '权限管理'
-        },
-        {
-          title: '角色列表'
-        }
+        { path: '/home', title: '首页' },
+        { title: '权限管理' },
+        { title: '角色列表' }
       ],
-
       // 所有角色列表数据
       rolesList: [],
-      dialogVisible: false,
-      // 所有权限的数据
-      rightslint: [],
-      defaultProps: {
-        children: 'children',
-        label: 'authName'
-      },
-      defKeys: [], // 默认选中的节点数组
-      // 当前即将分配权限的角色id
-      roleId: ''
+      // 分配权限表单数据
+      defKeys: [],
+      roleId: '',
+      alotTreeVisible: false
     }
-  },
-  computed: {},
-  watch: {},
-  created() {
   },
   mounted() {
     this.getRolesList()
@@ -173,24 +151,15 @@ export default {
         return this.$message.error('删除权限失败')
       } else {
         this.$message.success('删除权限成功')
-        // this.getRolesList()
         role.children = res.data
       }
     },
     // 分配权限
-    async showSetRightDialog(role) {
+    allotPowerHanlde(role) {
       this.roleId = role.id
-      const { data: res } = await getAllrights({ type: 'tree' })
-      if (res.meta.status !== 200) {
-        return this.$message.error('获取权限列表数据失败')
-      }
-      // 把获取到的权限数据保存到data中
-      this.rightslint = res.data
-
-      // 递归获取三级节点的id
       this.defKeys = []
       this.getLeafKeys(role, this.defKeys)
-      this.dialogVisible = true
+      this.alotTreeVisible = true
     },
     // 通过递归形式获取角色下三级权限的id
     getLeafKeys(node, arr) {
@@ -202,24 +171,12 @@ export default {
         this.getLeafKeys(item, arr)
       })
     },
-    // 点击为角色分配权限
-    async allotRights() {
-      const keys = [
-        ...this.$refs.treeRef.getCheckedKeys(),
-        ...this.$refs.treeRef.getHalfCheckedKeys()
-      ]
-      const idStr = keys.join(',')
-      const params = {
-        rids: idStr,
-        roleId: this.roleId
+    // 分配权限表单关闭回调
+    closeModalCallBack(val) {
+      this.alotTreeVisible = false
+      if (val === 200) {
+        this.getRolesList()
       }
-      const { data: res } = await roleAuthorization(params)
-      if (res.meta.status !== 200) {
-        return this.$message.error('分配权限失败')
-      }
-      this.$message.success('分配权限成功!')
-      this.getRolesList()
-      this.dialogVisible = false
     }
   }
 }

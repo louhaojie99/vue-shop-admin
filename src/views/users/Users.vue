@@ -8,7 +8,6 @@
       <!-- 搜索与提娜佳区域 -->
       <el-row :gutter="24">
         <el-col :span="7">
-          <!-- @clear="onQueryUserList" -->
           <el-input v-model="queryParams.query" placeholder="请输入内容" clearable @change="onQueryUserList">
             <el-button slot="append" icon="el-icon-search" @click="onQueryUserList" />
           </el-input>
@@ -29,31 +28,12 @@
             stripe
             height="500"
           >
-            >
             <el-table-column type="index" label="#" width="80" align="center" />
-            <el-table-column
-              prop="username"
-              label="姓名"
-              sortable
-            />
-            <el-table-column
-              prop="email"
-              label="邮箱"
-              sortable
-            />
-            <el-table-column
-              prop="mobile"
-              label="电话"
-              sortable
-            />
-            <el-table-column
-              prop="role_name"
-              label="角色"
-              sortable
-            />
-            <el-table-column
-              label="状态"
-            >
+            <el-table-column prop="username" label="姓名" sortable />
+            <el-table-column prop="email" label="邮箱" sortable />
+            <el-table-column prop="mobile" label="电话" sortable />
+            <el-table-column prop="role_name" label="角色" sortable />
+            <el-table-column label="状态">
               <template slot-scope="scope">
                 <el-switch
                   v-model="scope.row.mg_state"
@@ -63,9 +43,7 @@
                 />
               </template>
             </el-table-column>
-            <el-table-column
-              label="操作"
-            >
+            <el-table-column label="操作">
               <template slot-scope="scope">
                 <el-row>
                   <!-- 修改按钮 -->
@@ -106,11 +84,11 @@
       -->
       <!-- 添加编辑表单 -->
       <crud-user-modal
-        v-if="visible"
+        v-if="CrudVisible"
         width="600"
         :title="modalParams.title"
         :user-id="userId"
-        :dialog-visible="visible"
+        :dialog-visible="CrudVisible"
         @closeDialog="closeCallBack"
       />
       <!-- 分配角色表单 -->
@@ -140,27 +118,31 @@ export default {
   },
   data() {
     return {
-      // 面包屑数据
+      // 面包屑导航数据
       breadcrumbData: [
         { path: '/home', title: '首页' },
         { title: '用户管理' },
         { title: '用户列表' }
       ],
-      // 分页器参数
+
+      // 分页参数
       queryParams: {
         query: '',
         pagenum: 1, // 默认多少页
         pagesize: 15 // 每页多少条
       },
       total: 0,
+
       // 用户列表数据
       userList: [],
+
       // 添加修改表单modal绑定数据
-      visible: false,
+      CrudVisible: false,
       modalParams: {
         title: ''
       },
       userId: 0,
+
       // 分配角色表单Modal绑定的数据
       allotRoleModalVisible: false,
       userInfo: {}
@@ -210,17 +192,17 @@ export default {
     // 添加用户
     addUserInfoHandle() {
       this.modalParams.title = '添加用户'
-      this.visible = true
+      this.CrudVisible = true
     },
     // 修改用户信息
     editUserInfoHandle(id) {
       this.userId = id
       this.modalParams.title = '修改用户'
-      this.visible = true
+      this.CrudVisible = true
     },
     // 添加成功的回调
     closeCallBack(val) {
-      this.visible = false
+      this.CrudVisible = false
       if (val === 200) {
         this.getUserList()
       }
@@ -257,7 +239,9 @@ export default {
     // 分配角色回调
     allotRoleCloseCallBack(val) {
       this.allotRoleModalVisible = false
-      if (val === 200) return
+      if (val === 200) {
+        this.getUserList()
+      }
     }
   }
 }

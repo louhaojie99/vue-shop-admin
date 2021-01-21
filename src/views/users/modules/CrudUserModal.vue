@@ -62,7 +62,6 @@ export default {
         callback(new Error('邮箱不能为空'))
       } else {
         if (!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(value)) {
-        // if (!/^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*\.[a-z]{2,}$/.test(value)) {
           callback(new Error('请输入合法的邮箱'))
         } else {
           callback()
@@ -115,7 +114,7 @@ export default {
   methods: {
     // 取消
     handleClose() {
-      this.$emit('closeDialog') // 取消 和 x按钮的事件
+      this.$emit('closeDialog')
     },
     // 关闭重置表单
     resetForm() {
