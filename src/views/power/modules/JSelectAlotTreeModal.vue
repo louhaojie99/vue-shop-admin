@@ -82,7 +82,6 @@ export default {
   },
   created() {
     this.getAllrights()
-    console.log('拿到的数据', this.defKeys)
   },
   methods: {
     // 取消
