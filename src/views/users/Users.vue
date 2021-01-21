@@ -22,11 +22,9 @@
         <el-col :span="24">
           <el-table
             :data="userList"
-            style="width: 100%"
             :default-sort="{prop: 'date', order: 'descending'}"
             border
             stripe
-            height="500"
           >
             <el-table-column type="index" label="#" width="80" align="center" />
             <el-table-column prop="username" label="姓名" sortable />
@@ -250,6 +248,7 @@ export default {
 .el-table{
   margin-top: 15px;
   font-size: 14px;
+  height: 60vh;
   overflow: auto;
 }
 .el-pagination{
