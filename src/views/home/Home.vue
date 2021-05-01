@@ -30,11 +30,7 @@
           @close="handleClose"
         >
           <!-- 解决返回数据Number转String问题 -->
-          <el-submenu
-            v-for="item in menuList"
-            :key="item.id"
-            :index="item.id + ''"
-          >
+          <el-submenu v-for="item in menuList" :key="item.id" :index="item.id + ''">
             <template slot="title">
               <i :class="iconsObj[item.id]" />
               &nbsp;
@@ -66,7 +62,9 @@
 
 <script>
 import storageUtils from '@/utils/storageUtils.js'
-import { getMenuList } from '@/api/home'
+import {
+  getMenuList
+} from '@/api/home'
 export default {
   components: {},
   data() {
@@ -112,69 +110,86 @@ export default {
     loginOut() {
       storageUtils.removeUser()
       this.$message.success('退出成功')
-      this.$router.push({ path: '/login' })
+      this.$router.push({
+        path: '/login'
+      })
     },
     // 获取所有的菜单列表
     async getMenuList() {
-      const { data: res } = await getMenuList()
+      const {
+        data: res
+      } = await getMenuList()
       if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
       // console.log(res.data)
       this.menuList = res.data
     }
   }
 }
+
 </script>
 <style lang="less" scoped>
-@headerBg: #373d41;
-@asideBg: #333744;
-@mainBg: #eaedf1;
-.home-container {
-  height: 100%;
-}
-.el-header {
-  background-color: @headerBg;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 0;
-  > div {
-    width: 250px;
+  @headerBg: #373d41;
+  @asideBg: #333744;
+  @mainBg: #eaedf1;
+
+  .home-container {
+    height: 100%;
+  }
+
+  .el-header {
+    background-color: @headerBg;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #fff;
-    font-size: 20px;
-    img {
-      width: 60px;
-      height: 60px;
+    padding-left: 0;
+
+    >div {
+      width: 250px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      font-size: 20px;
+
+      img {
+        width: 60px;
+        height: 60px;
+      }
     }
   }
-}
-.el-aside {
-  background-color: @asideBg;
-}
-.el-main {
-  background-color: @mainBg;
-}
-.el-menu-item.is-active {
-  background-color: rgb(41, 45, 54) !important;
-}
-.el-menu{
-  border-right: 0;
-}
-.toggle-button{
-  background-color: #272729;
-  color: #945b88;
-  font-size: 26px;
-  height: 35px;
-  line-height: 35px;
-  text-align: center;
-  cursor: pointer;
-}
-.active{
-  width: 200px;
-}
-.noActive{
-  width: 100px;
-}
+
+  .el-aside {
+    background-color: @asideBg;
+  }
+
+  .el-main {
+    background-color: @mainBg;
+  }
+
+  .el-menu-item.is-active {
+    background-color: rgb(41, 45, 54) !important;
+  }
+
+  .el-menu {
+    border-right: 0;
+  }
+
+  .toggle-button {
+    background-color: #272729;
+    color: #945b88;
+    font-size: 26px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .active {
+    width: 200px;
+  }
+
+  .noActive {
+    width: 100px;
+  }
+
 </style>

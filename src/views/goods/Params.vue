@@ -18,25 +18,23 @@ export default {
   data() {
     return {
       // 面包屑数据
-      breadcrumbData: [
-        {
-          path: '/home',
-          title: '首页'
-        },
-        {
-          title: '商品管理'
-        },
-        {
-          title: '分类参数'
-        }
+      breadcrumbData: [{
+        path: '/home',
+        title: '首页'
+      },
+      {
+        title: '商品管理'
+      },
+      {
+        title: '分类参数'
+      }
       ]
     }
   },
-  created() {
-  },
-  methods: {
-  }
+  created() {},
+  methods: {}
 }
+
 </script>
 <style lang='less' scoped>
 
